@@ -64,7 +64,7 @@ add_filter('registration_errors', 'vwpfp_fraud_prevention_registration_check', 1
 
 function vwpfp_fraud_prevention_registration_check($errors, $sanitized_user_login, $user_email) {
     $score = vwpfp_fraud_prevention_assess_email_score($user_email);
-    $threshold = get_option('vwpfp_fraud_prevention_threshold', 5); // Default threshold
+    $threshold = get_option('vwpfp_fraud_prevention_threshold', 6); // Default threshold
 
     if ($score >= $threshold) {
         $errors->add('fraudulent_email_error', __('Sorry, this email address was flagged as potentially fraudulent...Please try again'));
@@ -82,13 +82,13 @@ add_action('woocommerce_checkout_process', 'vwpfp_checkout_antifraud_field_valid
 function vwpfp_checkout_antifraud_field_validation() {	
 	
 	
-	$max_transactions_per_minute = get_option('vwpfp_max_transactions', 10); 
-	$transactionLimit = vwpfp_limit_transactions_per_minute();
+	$max_transactions_per_minute = intval(get_option('vwpfp_max_transactions', 10)); 
+	$transactionLimit = intval(vwpfp_limit_transactions_per_minute());
 
 	if($transactionLimit > $max_transactions_per_minute) {
 		wc_add_notice('Transaction Limit Exceeded. Please try again in a few minutes.', 'error');
 		 // Send an email to the administrator
-        $admin_email = get_bloginfo('admin_email');
+        $admin_email = filter_var(get_bloginfo('admin_email'), FILTER_SANITIZE_EMAIL);
         $subject = 'Transaction Attempt Limit Exceeded';
 	    $user_identifier = is_user_logged_in() ? intval(get_current_user_id()) : filter_var($_SERVER['REMOTE_ADDR'], FILTER_SANITIZE_STRING);
 
@@ -134,7 +134,7 @@ function vwpfp_checkout_antifraud_field_validation() {
 }
 
 function vwpfp_limit_transactions_per_minute() {
-	$max_transactions_per_minute = get_option('vwpfp_max_transactions', 10); 
+	$max_transactions_per_minute = intval(get_option('vwpfp_max_transactions', 10)); 
 
     $user_identifier = is_user_logged_in() ? intval(get_current_user_id()) : filter_var($_SERVER['REMOTE_ADDR'], FILTER_SANITIZE_STRING);
     $transient_key = 'transaction_limit_' . $user_identifier . '_' . floor(time() / 60);
