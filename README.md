@@ -1,5 +1,4 @@
 === VisualWP Anti-Spam and Fraud Prevention ===
-
 Contributors: sightfactory
 Tags: antispam,fraud,spam
 Requires at least: 5.9
