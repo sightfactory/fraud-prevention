@@ -1,5 +1,5 @@
 === VisualWP Anti-Spam and Fraud Prevention ===
-Contributors: Sightfactory
+Contributors: sightfactory
 Tags: antispam,fraud,spam
 Requires at least: 5.9
 Tested up to: 6.5
@@ -29,6 +29,11 @@ Increase security and protect against bots, spammers and hackers. VisualWP Anti-
 
 After installing the plugin, set the maximum transactions per minute and the email score threshold to mitigate against velocity attacks and spam emails.
 
+== Screenshots ==
+
+1. This screen shot shows the settings screen.
+2. This screen shot shows the error notice when a spam email is detected
+3. This screen show shows the error notice when too many transactions are attempted
 
 == Changelog ==
 
