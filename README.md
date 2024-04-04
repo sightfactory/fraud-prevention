@@ -32,8 +32,8 @@ After installing the plugin, set the maximum transactions per minute and the ema
 == Screenshots ==
 
 1. This screen shot shows the settings screen.
-2. This screen shot shows the error notice when a spam email is detected
-3. This screen show shows the error notice when too many transactions are attempted
+2. This screen shot shows the error notice when a spam email is detected.
+3. This screen show shows the error notice when too many transactions are attempted.
 
 == Changelog ==
 
