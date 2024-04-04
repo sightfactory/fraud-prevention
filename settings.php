@@ -58,8 +58,8 @@ $vwpfp_nonce = wp_create_nonce( 'vwpfp_fraud_settings_nonce' );
 
 
 // Fetch the current threshold value
-$current_threshold = get_option('vwpfp_fraud_prevention_threshold', 6);
-$current_max_transactions = get_option('vwpfp_max_transactions', 10);
+$current_threshold = intval(get_option('vwpfp_fraud_prevention_threshold', 6));
+$current_max_transactions = intval(get_option('vwpfp_max_transactions', 10));
 ?>
 
 <div class="wrap">
