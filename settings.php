@@ -29,7 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $vwpfp_setting_updated = 1;
     }
     else {       
-        echo wp_kses( __( '<p>Threshold must be a number between 1 and 10</p>', 'visual-wp-fraud-prevention' ), $allowed_tags );
+        echo wp_kses( __( 'Threshold must be a number between 1 and 10', 'visual-wp-fraud-prevention' ), $allowed_tags ) . "<br>";
+
         $vwpfp_setting_updated = 0; // Corrected variable name
     }
     
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $vwpfp_setting_updated = 1; // Updated variable name
     }
     else {
-        echo wp_kses( __( '<p>Max transactions must be a number between 1 and 100</p>', 'visual-wp-fraud-prevention' ), $allowed_tags );
+        echo wp_kses( __( 'Max transactions must be a number between 1 and 100', 'visual-wp-fraud-prevention' ), $allowed_tags ) . "<br>";
         $vwpfp_setting_updated = 0; // Updated variable name
     }
 }
