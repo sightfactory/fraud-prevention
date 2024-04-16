@@ -3,7 +3,7 @@ Contributors: sightfactory
 Tags: antispam,fraud,spam
 Requires at least: 5.9
 Tested up to: 6.5
-Stable tag: 1.2
+Stable tag: 1.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -36,6 +36,9 @@ After installing the plugin, set the maximum transactions per minute and the ema
 3. This screen show shows the error notice when too many transactions are attempted.
 
 == Changelog ==
+
+= 1.3 =
+* Bug fix
 
 = 1.2 =
 * Improvements to allow easier translation. Bug fixes
