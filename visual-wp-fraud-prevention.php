@@ -3,7 +3,7 @@
  * Plugin Name: VisualWP Anti-Spam and Fraud Prevention
  * Plugin URI: https://sightfactory.com/product/visualwp-anti-spam-and-fraud-prevention/
  * Description: Prevents fraudulent or spam account creation based on email assessment in WordPress and Woocommerce. Limits transaction volume.
- * Version: 1.2
+ * Version: 1.3
  * Author: Sightfactory
  * Author URI: https://www.sightfactory.com
  * License: GPL v2 or later
