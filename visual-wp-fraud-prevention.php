@@ -3,7 +3,7 @@
  * Plugin Name: VisualWP Anti-Spam and Fraud Prevention
  * Plugin URI: https://sightfactory.com/product/visualwp-anti-spam-and-fraud-prevention/
  * Description: Prevents fraudulent or spam account creation based on email assessment in WordPress and Woocommerce. Limits transaction volume.
- * Version: 1.1
+ * Version: 1.2
  * Author: Sightfactory
  * Author URI: https://www.sightfactory.com
  * License: GPL v2 or later
@@ -72,7 +72,7 @@ function vwpfp_fraud_prevention_registration_check($errors, $sanitized_user_logi
     $threshold = get_option('vwpfp_fraud_prevention_threshold', 6); // Default threshold
 
     if ($score >= $threshold) {
-        $errors->add('fraudulent_email_error', __('Sorry, this email address was flagged as potentially fraudulent...Please try again'));
+        $errors->add('fraudulent_email_error', __('Sorry, this email address was flagged as potentially fraudulent...Please try again','visual-wp-fraud-prevention'));
 		
 		return;
     }
@@ -86,15 +86,15 @@ add_action('woocommerce_checkout_process', 'vwpfp_checkout_antifraud_field_valid
 
 function vwpfp_checkout_antifraud_field_validation() {	
 	
-	
 	$max_transactions_per_minute = intval(get_option('vwpfp_max_transactions', 10)); 
 	$transactionLimit = intval(vwpfp_limit_transactions_per_minute());
 
 	if($transactionLimit > $max_transactions_per_minute) {
-		wc_add_notice('Transaction Limit Exceeded. Please try again in a few minutes.', 'error');
-		 // Send an email to the administrator
+		wc_add_notice(__('Transaction Limit Exceeded. Please try again in a few minutes.', 'visual-wp-fraud-prevention'), 'error');
+		
+		// Send an email to the administrator
         $admin_email = filter_var(get_bloginfo('admin_email'), FILTER_SANITIZE_EMAIL);
-        $subject = 'Transaction Attempt Limit Exceeded';
+        $subject = __('Transaction Attempt Limit Exceeded', 'visual-wp-fraud-prevention');
 	    $user_identifier = is_user_logged_in() ? intval(get_current_user_id()) : filter_var($_SERVER['REMOTE_ADDR'], FILTER_SANITIZE_STRING);
 
 		if(is_user_logged_in()) {
@@ -102,17 +102,10 @@ function vwpfp_checkout_antifraud_field_validation() {
 			$user_identifier = $current_user->user_email;
 		}
 		
-        $message = 'The transaction limit of ' . $max_transactions_per_minute . ' per minute has been exceeded by user id or IP address: '.$user_identifier;
+        $message = __('The transaction limit of ', 'visual-wp-fraud-prevention') . $max_transactions_per_minute . __(' per minute has been exceeded by user id or IP address: ', 'visual-wp-fraud-prevention') . $user_identifier;
         wp_mail($admin_email, $subject, $message);
-		
-	
-		
-
-		
-		
 	}
-	
-	
+
 	$score = NULL;
     $billing_email = WC()->checkout()->get_value('billing_email');
 
@@ -121,22 +114,22 @@ function vwpfp_checkout_antifraud_field_validation() {
 		$threshold = get_option('vwpfp_fraud_prevention_threshold', 6); 
 		
 		if($score > $threshold) {
-			wc_add_notice('Sorry, this email address was flagged as potentially fraudulent...Please try again.', 'error');
+			wc_add_notice(__('Sorry, this email address was flagged as potentially fraudulent...Please try again.', 'visual-wp-fraud-prevention'), 'error');
 			return;
 		}
 		else {
-			
 			return;
 		}
 	}
-	if($score == NULL) {
-			wc_add_notice('Sorry, this email address was flagged as potentially fraudulent...Please try again.', 'error');
-			return;
-		}
+	
+	if($score === NULL) {
+		wc_add_notice(__('Sorry, this email address was flagged as potentially fraudulent...Please try again.', 'visual-wp-fraud-prevention'), 'error');
+		return;
+	}
 	
 	return;
-
 }
+
 
 function vwpfp_limit_transactions_per_minute() {
 	$max_transactions_per_minute = intval(get_option('vwpfp_max_transactions', 10)); 
@@ -162,17 +155,17 @@ function vwpfp_limit_transactions_per_minute() {
 
 /*Block user registration by domain*/
 function vwpfp_block_user_registration_by_email_domain($errors, $sanitized_user_login, $user_email) {
-    $blocked_domains = array('mailbox.imailfree.cc', 'email.imailfree.cc','inboxmail.imailfree.cc','mail.imailfree.cc'
-    ,'hidebox.org','inbox.imailfree.cc');
+    $blocked_domains = array('mailbox.imailfree.cc', 'email.imailfree.cc', 'inboxmail.imailfree.cc', 'mail.imailfree.cc', 'hidebox.org', 'inbox.imailfree.cc');
 
     $email_domain = strtolower(substr(strrchr($user_email, "@"), 1));
 
     if (in_array($email_domain, $blocked_domains)) {
-        $errors->add('email_domain_blocked', __('Registration using this email domain is not allowed.'));
+        $errors->add('email_domain_blocked', __('Registration using this email domain is not allowed.', 'visual-wp-fraud-prevention'));
     }
 
     return $errors;
 }
+
 add_filter('registration_errors', 'vwpfp_block_user_registration_by_email_domain', 10, 3);
 
 ?>
