@@ -3,7 +3,7 @@ Contributors: sightfactory
 Tags: antispam,fraud,spam
 Requires at least: 5.9
 Tested up to: 6.5
-Stable tag: 1.1
+Stable tag: 1.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,6 +37,9 @@ After installing the plugin, set the maximum transactions per minute and the ema
 
 == Changelog ==
 
+= 1.2 =
+* Improvements to allow easier translation. Bug fixes
+
 = 1.1 =
 * Improvements to code. Security hardening
 
@@ -45,5 +48,5 @@ After installing the plugin, set the maximum transactions per minute and the ema
 
 == Upgrade Notice ==
 
-= 1.1 =
-Improvements to code
+= 1.2 =
+Improvements to allow easier translation
